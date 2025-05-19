@@ -29,9 +29,12 @@ if (isset($_POST['nombre'], $_POST['correo'], $_POST['contrasena'], $_POST['dire
     $stmt->bind_param("sssss", $name, $email, $hashedPass, $direction, $telf);
 
     if ($stmt->execute()) {
-        echo "Registrado correctamente";
+       
+        header("Location: ../views/registro.php?mensaje=ok");
+        exit;
     } else {
-        echo "Error al registrar: " . $stmt->error;
+        header("Location: ../views/registro.php?mensaje=error");
+        exit;
     }
 
     $stmt->close();

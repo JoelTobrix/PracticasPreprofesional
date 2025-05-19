@@ -11,6 +11,9 @@
     <h1 class="h3 mb-3 fw-normal">Registre sus datos</h1>
     <img src="../img/logo.png" width="100px" height="100px">
 
+    <!--Line aparece mensaje-->
+    <div id="mensaje" style="display:none; margin: 15px auto; padding: 12px; border-radius: 5px; width: 300px; text-align: center; font-weight: bold;"></div>
+
     <form  id="registroForm" action="../controllers/registro.controller.php" method="POST">
         
             <h3>Nombre
@@ -40,6 +43,24 @@
     <script>
         function borrarFormulario() {
             document.getElementById("registroForm").reset();
+        }
+
+        //  Script para mostrar mensaje si la URL tiene "?mensaje=ok"
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const mensajeDiv = document.getElementById("mensaje");
+
+            if (params.get("mensaje") === "ok") {
+                mensajeDiv.style.display = "block";
+                mensajeDiv.style.backgroundColor = "#d4edda";
+                mensajeDiv.style.color = "#155724";
+                mensajeDiv.innerText = "Usuario registrado correctamente.";
+
+                // Ocultar luego de 3 segundos
+                setTimeout(() => {
+                    mensajeDiv.style.display = "none";
+                }, 3000);
+            }
         }
     </script>
 </body>
