@@ -27,7 +27,7 @@
                         <input type="checkbox" value="remember-me"> Remember me
                     </label>
                 </div>
-                <a href="../views/interpc.php" class="w-100 btn btn-lg btn-primary mb-3">Ingresar</button>
+                 <button type="submit" class="w-100 btn btn-lg btn-primary mb-3">Ingresar</button>
                  <a href="../views/registro.php" class="w-100 btn btn-lg btn-primary">Registrarse</a>
 
                 <p class="mt-5 mb-3 text-muted">© 2025-2030</p>

@@ -1,31 +1,50 @@
 <?php
+session_start();
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-//Conexion database
-$conexion= new mysqli("localhost","interpc","Codex2017.@1987","interpc.net@");
-if($conexion->connect_error){
-     die("Error de conexión: " . $conexion->connect_error);
+
+// Conexión a la base de datos
+$conexion = new mysqli("localhost", "interpc", "Codex2017.@1987", "interpc.net@"); // Info
+
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
 }
-   //Verificar llegada, campos de formulario
-   if(isset($_POST['correo'] && isset($_POST['contraseña']))){
 
-    $mail= $_POST['correo'];
-    $pass= $_POST['cortraseña'];
+if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
 
-    //Ingreso login
-    $sql_consultar="SELECT * FROM usuario WHERE  email='$mail' AND password='$pass'";
-    $result= $conexion-> query($sql);
-       //Verify register
-       if($result-> num_rows>0){
-        header("Location: ../views/interpc.php");
+    $mail = $_POST['correo'];
+    $pass = $_POST['contraseña'];
+
+    $sql_consultar = "SELECT * FROM usuario WHERE email = ?";
+    $stmt = $conexion->prepare($sql_consultar);
+    $stmt->bind_param("s", $mail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        if (password_verify($pass, $row['password'])) {
+            $_SESSION['usuario'] = $row['email']; // Guarda el usuario en sesión
+            header("Location: ../views/interpc.php");
+            exit();
+        } else {
+            $_SESSION['error'] = "Contraseña incorrecta.";
+            header("Location: ../views/login.php");
+            exit();
+        }
+    } else {
+        $_SESSION['error'] = "Correo no registrado.";
+        header("Location: ../views/login.php");
         exit();
-       }else{
-        echo "Correo o contraseña incorrectos.";
-       }   $stmt->close();
-   }else{
-    echo "Complete los campos";
-   
-   }
-    $conexion-> close();
+    }
+} else {
+    $_SESSION['error'] = "Complete los campos.";
+    header("Location: ../views/login.php");
+    exit();
+}
+
+$conexion->close();
 ?>
+

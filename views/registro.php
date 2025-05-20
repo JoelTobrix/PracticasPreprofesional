@@ -8,6 +8,7 @@
     <link href="../css/register.css" rel="stylesheet">
 </head>
 <body>
+    
     <h1 class="h3 mb-3 fw-normal">Registre sus datos</h1>
     <img src="../img/logo.png" width="100px" height="100px">
 
@@ -38,6 +39,7 @@
 
         <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Registrar</button>
         <button class="w-100 btn btn-lg btn-primary" type="button" onclick="borrarFormulario()">Borrar</button>
+        <button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href='../views/login.php'" >Regresar</button>
     </form> 
 
     <script>
