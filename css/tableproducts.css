@@ -1,0 +1,10 @@
+.tableproducts{
+    width: 100%;
+    margin-bottom: 2 rem;
+}
+.table th,
+.table td{
+    padding: 0.5rem;
+    vertical-align: top;
+    border: 1px solid #66ccff
+}
