@@ -1,4 +1,4 @@
-.tableproducts{
+.table{
     width: 100%;
     margin-bottom: 2 rem;
 }
@@ -7,4 +7,64 @@
     padding: 0.5rem;
     vertical-align: top;
     border: 1px solid #66ccff
+}
+.table thead th{
+    background-color: #94adf1;
+    border-bottom: 2px solid #62aaf1
+}
+.color-green{
+   background-color: #4CAF50; /* Verde agradable */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.color-blue{
+    background-color: #62aaf1;
+    color: white;
+    border: none;
+    padding:  10px 15px;
+     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.color-red{
+    background-color: crimson;
+    color: white;
+    border: none;
+     padding:  10px 15px;
+     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.color-orange{
+background-color:chocolate;
+color: white;
+border: none;
+ padding:  10px 15px;
+     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }

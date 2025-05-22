@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 22-05-2025 a las 00:18:15
+-- Tiempo de generación: 22-05-2025 a las 18:17:54
 -- Versión del servidor: 5.7.24
--- Versión de PHP: 7.4.1
+-- Versión de PHP: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -41,6 +40,22 @@ CREATE TABLE `codigo_admin` (
 
 INSERT INTO `codigo_admin` (`id_codigo`, `codigo`) VALUES
 (1, '3302');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto`
+--
+
+CREATE TABLE `producto` (
+  `producto_id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(20) NOT NULL,
+  `precio` decimal(10,0) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `categoria` varchar(20) NOT NULL,
+  `imagen` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -79,6 +94,12 @@ ALTER TABLE `codigo_admin`
   ADD PRIMARY KEY (`id_codigo`);
 
 --
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`producto_id`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -93,6 +114,12 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `codigo_admin`
   MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
