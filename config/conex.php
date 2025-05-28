@@ -9,7 +9,7 @@ $database="interpc.net@";
   if($conn->connect_errno){
     die(" error " .$conn-> connect_errno);
   }else{
-    
+    //echo "Conexion Exitosa ";
   } //close connection
   
 ?>

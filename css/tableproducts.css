@@ -6,11 +6,11 @@
 .table td{
     padding: 0.5rem;
     vertical-align: top;
-    border: 1px solid #66ccff
+    border: none;
 }
 .table thead th{
     background-color: #94adf1;
-    border-bottom: 2px solid #62aaf1
+    border-bottom:#94adf1
 }
 .color-green{
    background-color: #4CAF50; /* Verde agradable */

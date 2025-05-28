@@ -38,10 +38,25 @@
         echo "<td>{$row['stock']}</td>";
         echo "<td>{$row['categoria']}</td>";
         echo "<td><img src='../{$row['imagen']}' width='50'></td>";
+        echo "<td>";
+
+        
+         echo "<button type='button' class='color-orange' data-bs-toggle='modal' data-bs-target='#editProductModal'";
+         echo " data-id='{$row['producto_id']}'"; 
+         echo " data-nombre='" . htmlspecialchars($row['nombre']) . "'"; 
+         echo " data-descripcion='" . htmlspecialchars($row['descripcion']) . "'";
+         echo " data-precio='{$row['precio']}'";
+         echo " data-stock='{$row['stock']}'";
+         echo " data-categoria='" . htmlspecialchars($row['categoria']) . "'";
+         echo " data-imagen-path='../{$row['imagen']}'>"; 
+         echo "Editar</button>";
+         echo "</td>";
         echo "</tr>";
+         
       }
       $conn->close();
       ?>
+      
     </tbody>
   </table>
 
@@ -96,7 +111,47 @@
   </div>
 </div>
 
+<!-- Modal Actualizar Producto -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="EditProductLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" method="POST" action="/interpc/controllers/products.controller.php" enctype="multipart/form-data">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditProductLabel">Editar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editProductId" name="id_producto">
 
+                <div class="mb-3">
+                    <label for="editProductName" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="editProductName" name="nombre" required>
+                </div> <div class="mb-3">
+                    <label for="editProductDescription" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="editProductDescription" name="descripcion" required></textarea>
+                </div> <div class="mb-3">
+                    <label for="editProductPrice" class="form-label">Precio</label>
+                    <input type="number" step="0.01" class="form-control" id="editProductPrice" name="precio" required>
+                </div> <div class="mb-3">
+                    <label for="editProductStock" class="form-label">Stock</label>
+                    <input type="number" class="form-control" id="editProductStock" name="stock" required>
+                </div> <div class="mb-3">
+                    <label for="editProductCategory" class="form-label">Categoría</label>
+                    <input type="text" class="form-control" id="editProductCategory" name="categoria" required>
+                </div> <div class="mb-3">
+                    <label for="currentProductImage" class="form-label">Imagen Actual</label>
+                    <img id="currentProductImage" src="" alt="Imagen del producto" width="80" class="d-block mb-2">
+                    <label for="newProductImage" class="form-label">Cambiar Imagen (opcional)</label>
+                    <input type="file" class="form-control" id="newProductImage" name="imagen" accept="image/*">
+                    <small class="form-text text-muted">Deja en blanco si no quieres cambiar la imagen.</small>
+                </div> <input type="hidden" name="update_product" value="1">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="saveChangesButton">Actualizar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 <!-- Bootstrap JS y dependencias -->
