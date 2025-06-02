@@ -152,6 +152,34 @@
         </form>
     </div>
 </div>
+    <!--Funcion aparicion de los datos en la tabla-->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const editModal = document.getElementById('editProductModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+
+        // Obtener los datos del botón
+        const id = button.getAttribute('data-id');
+        const nombre = button.getAttribute('data-nombre');
+        const descripcion = button.getAttribute('data-descripcion');
+        const precio = button.getAttribute('data-precio');
+        const stock = button.getAttribute('data-stock');
+        const categoria = button.getAttribute('data-categoria');
+        const imagenPath = button.getAttribute('data-imagen-path');
+
+        // Asignar los datos a los campos del modal
+        document.getElementById('editProductId').value = id;
+        document.getElementById('editProductName').value = nombre;
+        document.getElementById('editProductDescription').value = descripcion;
+        document.getElementById('editProductPrice').value = precio;
+        document.getElementById('editProductStock').value = stock;
+        document.getElementById('editProductCategory').value = categoria;
+        document.getElementById('currentProductImage').src = imagenPath;
+        
+    });
+});
+</script>
 
 
 <!-- Bootstrap JS y dependencias -->

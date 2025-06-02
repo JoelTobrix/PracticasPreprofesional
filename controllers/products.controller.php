@@ -1,4 +1,27 @@
 <?php
+
+function uploadImage($file) {
+    if ($file['error'] === UPLOAD_ERR_OK) {
+        $imagen_tmp = $file['tmp_name'];
+        $imagen_nombre = basename($file['name']);
+        $ruta_destino = '/interpc/uploads/' . $imagen_nombre;
+
+        // Crear carpeta si no existe
+        if (!is_dir('uploads')) {
+            mkdir('uploads', 0755, true);
+        }
+
+        if (move_uploaded_file($imagen_tmp, $ruta_destino)) {
+            return ['success' => true, 'path' => $ruta_destino];
+        } else {
+            return ['success' => false, 'message' => 'Error al mover la imagen al destino'];
+        }
+    } else {
+        return ['success' => false, 'message' => 'Error en la subida: ' . $file['error']];
+    }
+}
+
+//1. Insertar Datos
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     // Recibir datos
     $nombre = $_POST['nombre'];
@@ -11,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
         $imagen_tmp = $_FILES['imagen']['tmp_name'];
         $imagen_nombre = basename($_FILES['imagen']['name']);
-        $ruta_destino = 'uploads/' . $imagen_nombre;
+        $ruta_destino = '/interpc/uploads/' . $imagen_nombre;
 
         // Crear carpeta si no existe
         if (!is_dir('uploads')) {
@@ -43,10 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
 }
 
 
- //Actualizar productos
- if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['uptade_product'])){
-    
-    $id_producto = $_POST['producto_id'] ?? null; 
+ //2.Actualizar productos
+ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])){
+
+     $id_producto = $_POST['producto_id'] ?? null; 
     if (empty($id_producto)) {
         echo json_encode(['success' => false, 'message' => 'ID del producto no proporcionado para la actualización.']);
         $conn->close();
