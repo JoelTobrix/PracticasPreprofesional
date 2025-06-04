@@ -1,17 +1,50 @@
+/* Contenedor general con fondo */
+.table-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    min-height: 100vh;
+    border-radius: 10px;
+}
+
 .table{
     width: 100%;
-    margin-bottom: 2 rem;
+    margin-bottom: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
 }
+
 .table th,
 .table td{
     padding: 0.5rem;
     vertical-align: top;
     border: none;
 }
+
 .table thead th{
     background-color: #94adf1;
-    border-bottom:#94adf1
+    border-bottom:#94adf1;
+    color: white;
+    font-weight: bold;
 }
+
+/* Filas alternadas */
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9ff;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Efecto hover en las filas */
+.table tbody tr:hover {
+    background-color: #e3f2fd;
+    transform: scale(1.01);
+    transition: all 0.2s ease;
+}
+
 .color-green{
    background-color: #4CAF50; /* Verde agradable */
     color: white;
@@ -25,7 +58,14 @@
     font-family: sans-serif;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
+
+.color-green:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
 .color-blue{
     background-color: #62aaf1;
     color: white;
@@ -39,7 +79,14 @@
     font-family: sans-serif;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(98, 170, 241, 0.3);
 }
+
+.color-blue:hover {
+    background-color: #4a9ae1;
+    transform: translateY(-2px);
+}
+
 .color-red{
     background-color: crimson;
     color: white;
@@ -53,7 +100,14 @@
     font-family: sans-serif;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
 }
+
+.color-red:hover {
+    background-color: #b91c47;
+    transform: translateY(-2px);
+}
+
 .color-orange{
 background-color:chocolate;
 color: white;
@@ -67,4 +121,22 @@ border: none;
     font-family: sans-serif;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(210, 105, 30, 0.3);
+}
+
+.color-orange:hover {
+    background-color: #c8691e;
+    transform: translateY(-2px);
+}
+
+/* Contenedor para los botones */
+.buttons-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1.5rem;
+    border-radius: 10px;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
