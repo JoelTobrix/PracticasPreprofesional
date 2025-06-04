@@ -120,30 +120,36 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="editProductId" name="id_producto">
-
+                <input type="hidden" id="editProductId" name="producto_id">
+                
                 <div class="mb-3">
                     <label for="editProductName" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="editProductName" name="nombre" required>
-                </div> <div class="mb-3">
+                    <input type="text" class="form-control" id="editProductName" name="nombre">
+                </div>
+                <div class="mb-3">
                     <label for="editProductDescription" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="editProductDescription" name="descripcion" required></textarea>
-                </div> <div class="mb-3">
+                    <textarea class="form-control" id="editProductDescription" name="descripcion"></textarea>
+                </div>
+                <div class="mb-3">
                     <label for="editProductPrice" class="form-label">Precio</label>
-                    <input type="number" step="0.01" class="form-control" id="editProductPrice" name="precio" required>
-                </div> <div class="mb-3">
+                    <input type="number" step="0.01" class="form-control" id="editProductPrice" name="precio">
+                </div>
+                <div class="mb-3">
                     <label for="editProductStock" class="form-label">Stock</label>
-                    <input type="number" class="form-control" id="editProductStock" name="stock" required>
-                </div> <div class="mb-3">
+                    <input type="number" class="form-control" id="editProductStock" name="stock">
+                </div>
+                <div class="mb-3">
                     <label for="editProductCategory" class="form-label">Categoría</label>
-                    <input type="text" class="form-control" id="editProductCategory" name="categoria" required>
-                </div> <div class="mb-3">
+                    <input type="text" class="form-control" id="editProductCategory" name="categoria">
+                </div>
+                <div class="mb-3">
                     <label for="currentProductImage" class="form-label">Imagen Actual</label>
                     <img id="currentProductImage" src="" alt="Imagen del producto" width="80" class="d-block mb-2">
                     <label for="newProductImage" class="form-label">Cambiar Imagen (opcional)</label>
                     <input type="file" class="form-control" id="newProductImage" name="imagen" accept="image/*">
                     <small class="form-text text-muted">Deja en blanco si no quieres cambiar la imagen.</small>
-                </div> <input type="hidden" name="update_product" value="1">
+                </div>
+                <input type="hidden" name="update_product" value="1">
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success" id="saveChangesButton">Actualizar</button>
@@ -152,34 +158,24 @@
         </form>
     </div>
 </div>
-    <!--Funcion aparicion de los datos en la tabla-->
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const editModal = document.getElementById('editProductModal');
     editModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
 
-        // Obtener los datos del botón
-        const id = button.getAttribute('data-id');
-        const nombre = button.getAttribute('data-nombre');
-        const descripcion = button.getAttribute('data-descripcion');
-        const precio = button.getAttribute('data-precio');
-        const stock = button.getAttribute('data-stock');
-        const categoria = button.getAttribute('data-categoria');
-        const imagenPath = button.getAttribute('data-imagen-path');
-
-        // Asignar los datos a los campos del modal
-        document.getElementById('editProductId').value = id;
-        document.getElementById('editProductName').value = nombre;
-        document.getElementById('editProductDescription').value = descripcion;
-        document.getElementById('editProductPrice').value = precio;
-        document.getElementById('editProductStock').value = stock;
-        document.getElementById('editProductCategory').value = categoria;
-        document.getElementById('currentProductImage').src = imagenPath;
-        
+        document.getElementById('editProductId').value = button.getAttribute('data-id');
+        document.getElementById('editProductName').value = button.getAttribute('data-nombre') || '';
+        document.getElementById('editProductDescription').value = button.getAttribute('data-descripcion') || '';
+        document.getElementById('editProductPrice').value = button.getAttribute('data-precio') || '';
+        document.getElementById('editProductStock').value = button.getAttribute('data-stock') || '';
+        document.getElementById('editProductCategory').value = button.getAttribute('data-categoria') || '';
+        document.getElementById('currentProductImage').src = button.getAttribute('data-imagen-path') || '';
     });
 });
 </script>
+
 
 
 <!-- Bootstrap JS y dependencias -->
