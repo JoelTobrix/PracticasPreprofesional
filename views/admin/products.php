@@ -175,6 +175,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<script>
+  //Script de actualizar, envio mensaje actualizacion exitosa
+   window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const mensajeDiv = document.getElementById("mensaje");
+
+             if (params.get("mensaje") === "ok") {
+                mensajeDiv.style.display = "block";
+                mensajeDiv.style.backgroundColor = "#d4edda";
+                mensajeDiv.style.color = "#155724";
+                mensajeDiv.innerText = "Producto actualizado correctamente.";
+
+                // Ocultar luego de 3 segundos
+                setTimeout(() => {
+                    mensajeDiv.style.display = "none";
+                }, 3000);
+            }
+   }
+  </script>
 
 
 

@@ -170,9 +170,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
     call_user_func_array([$stmt, 'bind_param'], $bind_names);
 
     if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Producto actualizado exitosamente.']);
+        header("Location: ../views/admin/products.php?mensaje=ok"); exit;
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error al actualizar: ' . $stmt->error]);
+        header("Location: ../views/admin/products.php?mensaje=error"); exit;
     }
 
     $stmt->close();
