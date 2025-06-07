@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 22-05-2025 a las 18:17:54
+-- Tiempo de generación: 06-06-2025 a las 09:51:29
 -- Versión del servidor: 5.7.24
--- Versión de PHP: 8.3.1
+-- Versión de PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -50,12 +51,23 @@ INSERT INTO `codigo_admin` (`id_codigo`, `codigo`) VALUES
 CREATE TABLE `producto` (
   `producto_id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `descripcion` varchar(20) NOT NULL,
-  `precio` decimal(10,0) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
   `stock` int(11) NOT NULL,
   `categoria` varchar(20) NOT NULL,
   `imagen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`producto_id`, `nombre`, `descripcion`, `precio`, `stock`, `categoria`, `imagen`) VALUES
+(1, 'laptop', 'Nuevo', '800.04', 3, 'tecnologia', 'uploads/WhatsApp Image 2025-04-04 at 19.05.45(1).jpeg'),
+(2, 'mouse', 'Nuevo', '20.10', 5, 'tecnologia', 'uploads/WhatsApp Image 2025-04-04 at 19.05.45.jpeg'),
+(3, 'Parlantes', 'Nuevo', '20.15', 10, 'tecnologia', 'uploads/terreno.webp'),
+(4, 'Fuente de poder', 'Nuevo', '85.50', 1, 'tecnologia', 'uploads/imagen_2025-04-09_215935676-removebg-preview.png'),
+(5, 'Pantalla portatil', 'Nuevo', '160.50', 3, 'tecnologia', 'uploads/WhatsApp Image 2025-04-04 at 19.05.45.jpeg');
 
 -- --------------------------------------------------------
 
@@ -119,13 +131,13 @@ ALTER TABLE `codigo_admin`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

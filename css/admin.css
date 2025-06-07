@@ -62,10 +62,12 @@ button {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
+  
 }
 
 button:hover {
   background-color: #0066cc; /* Darker blue on hover */
+  
 }
 
 /* Logo styling if needed */
