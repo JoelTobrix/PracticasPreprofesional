@@ -28,11 +28,14 @@
 
                 <label for="search-filter">Buscar:</label>
                 <input type="text" id="search-filter" placeholder="Nombre del producto...">
+
+                <label for="car-filter">Carrito:</label>
+                <button type="submit" class="button-car">Ver carrito</button>
             </div>
         </div>
 
         <div class="products-grid" id="products-container">
-            <!-- Los productos se cargarán aquí -->
+            <!-- View productos -->
         </div>
     </div>
 

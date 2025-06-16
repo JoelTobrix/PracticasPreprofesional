@@ -20,7 +20,7 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #4496df 0%, #7aaaf3 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -73,6 +73,14 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             padding: 30px;
+        }
+        .car-filter{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; 
+            padding: 10px 30px;
+            background-color: #f1f3f5;
+            border-top: 1px solid #dee2e6;
         }
 
         .product-card {
@@ -218,4 +226,13 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             .filter-group > * {
                 width: 100%;
             }
-        }
+        .button-car {
+  background-color: #007bff;
+  color: rgb(145, 238, 238);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+        }    
+        

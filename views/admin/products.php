@@ -14,7 +14,7 @@
 <body>
     <div class="d-flex justify-content-between align-items-center px-4 py-2" style="background-color: #62aaf1;">
     <h5 class="mb-0">Inventario de Productos</h5>
-    <a href="/interpc/index.html" class="btn btn-outline-primary">Salir</a>
+    <a href="/interpc/index.html" class="btn btn-outline-primary"><img src="/interpc/icons/exit.svg" alt="Uptade" width="20" height="20">Salir</a>
   </div>
 
     <img src="/interpc/img/logo.png">
