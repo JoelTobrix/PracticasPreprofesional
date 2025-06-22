@@ -30,7 +30,8 @@
                 <input type="text" id="search-filter" placeholder="Nombre del producto...">
 
                 <label for="car-filter">Carrito:</label>
-                <button type="submit" class="button-car">Ver carrito</button>
+                <button onclick="showCart()">Ver carrito</button>
+
             </div>
         </div>
 
@@ -41,6 +42,7 @@
 
     <script>
         let allProducts = [];
+        let cart=[];
 
         function getStockClass(stock) {
             if (stock >= 4) return 'stock-high';
@@ -76,8 +78,8 @@
                         <span class="product-category">${product.categoria}</span>
                         <div class="product-price">${formatPrice(product.precio)}</div>
                         <div class="product-stock">Stock disponible: ${product.stock} unidades</div>
-                        <button class="btn-contact" onclick="contactForProduct('${product.nombre}')">
-                            Consultar Disponibilidad
+                        <button class="btn-contact" onclick="addToCart('${product.nombre}')">
+                            Añadir al carrito
                         </button>
                     </div>
                 </div>
@@ -115,9 +117,34 @@
             renderProducts(filtered);
         }
 
-        function contactForProduct(productName) {
-            alert(`¡Gracias por tu interés en ${productName}! Te contactaremos pronto para brindarte más información.`);
-        }
+
+        function addToCart(productName) {
+     const product = allProducts.find(p => p.nombre === productName);
+    if (product) {
+        cart.push(product);
+        alert(`${productName} se ha añadido al carrito.`);
+    } else {
+        alert('Producto no encontrado.');
+    }
+
+}
+
+      //Ver carrito
+      function showCart() {
+    if (cart.length === 0) {
+        alert("El carrito está vacío.");
+        return;
+    }
+
+    let cartList = "Productos en el carrito:\n";
+    cart.forEach((item, index) => {
+        cartList += `${index + 1}. ${item.nombre} - ${formatPrice(item.precio)}\n`;
+    });
+
+    alert(cartList);
+}
+
+
 
         async function loadProducts() {
             try {
