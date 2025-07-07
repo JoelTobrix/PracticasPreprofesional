@@ -49,14 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     }
 
     // Conectar a BD y guardar producto
-    include '../config/conex.php'; // Asegúrate que este archivo contenga tu conexión a la BD
+    include '../config/conex.php'; //Conexion
 
     $stmt = $conn->prepare("INSERT INTO producto (nombre, descripcion, precio, stock, categoria, imagen) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssdiis", $nombre, $descripcion, $precio, $stock, $categoria, $ruta_destino);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../views/admin/products.php"); // Cambia al archivo que muestra la tabla
+        header("Location: ../views/admin/products.php"); 
         exit;
     } else {
         echo "Error al guardar en la base de datos";

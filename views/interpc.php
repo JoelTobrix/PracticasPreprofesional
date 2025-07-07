@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Interpc.net@</title>
     <link rel="icon" href="../img/logo.png">
     <link href="../css/interpc.css" rel="stylesheet">
@@ -30,14 +31,18 @@
                 <input type="text" id="search-filter" placeholder="Nombre del producto...">
 
                 <label for="car-filter">Carrito:</label>
-                <button onclick="showCart()">Ver carrito</button>
+                <button class="car-filter" onclick="showCart()" data-bs-toggle="modal" data-bs-target="#cartModal">Ver carrito</button>
 
+          
             </div>
         </div>
 
         <div class="products-grid" id="products-container">
             <!-- View productos -->
         </div>
+                
+                    
+                </div>
     </div>
 
     <script>
@@ -130,22 +135,31 @@
 }
 
       //Ver carrito
-      function showCart() {
+     function showCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
     if (cart.length === 0) {
-        alert("El carrito está vacío.");
+        cartItemsContainer.innerHTML = '<p>El carrito está vacío.</p>';
         return;
     }
 
-    let cartList = "Productos en el carrito:\n";
+    let html = '<ul class="list-group">';
     cart.forEach((item, index) => {
-        cartList += `${index + 1}. ${item.nombre} - ${formatPrice(item.precio)}\n`;
+        html += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-0">${item.nombre}</h6>
+                    <small>${item.descripcion}</small>
+                </div>
+                <span class="badge bg-primary rounded-pill">${formatPrice(item.precio)}</span>
+            </li>
+        `;
     });
+    html += '</ul>';
 
-    alert(cartList);
+    cartItemsContainer.innerHTML = html;
 }
 
-
-
+        //Cargar productos
         async function loadProducts() {
             try {
                 const res = await fetch('../models/products.model.php');
@@ -176,5 +190,29 @@
         // Cargar productos al inicio
         loadProducts();
     </script>
+    
+   
+   <!-- Modal del carrito -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartModalLabel">Carrito de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="cart-items">
+        <!-- Productos del carrito -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Proceder al pago</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 </html>

@@ -75,13 +75,27 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 30px;
         }
         .car-filter{
-            display: flex;
-            align-items: center;
-            justify-content: flex-end; 
-            padding: 10px 30px;
-            background-color: #f1f3f5;
-            border-top: 1px solid #dee2e6;
+             background-color: #38b000;         /* Verde vibrante */
+         color: white;
+         border: none;
+         padding: 10px 20px;
+         border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+         }
+
+        .car-filter button:hover {
+        background-color: #2e9c00;         
+        transform: scale(1.05);           
         }
+
+       .car-filter button:active {
+       transform: scale(0.98);           
+        }
+        
 
         .product-card {
             background: white;
@@ -234,5 +248,10 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 5px;
 }
 
-        }    
+
+
+        }
+       
+
+            
         
