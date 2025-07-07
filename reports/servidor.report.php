@@ -7,6 +7,7 @@ $pdf->SetFont('Arial','B',12);
 $pdf->Text(30,10, 'Reporte de productos',0,1);
 $pdf->SetFont('Arial','',10);
 $pdf->Cell(0,10, 'Generado el: '.date('d/m/Y'), 0, 1);
+$pdf->Cell(0,10, 'Hora:' .date('h:i:s A'), 0, 1);
 $pdf->Ln(20);
 $pdf->SetFillColor(200,200,200); // Gris claro
 $pdf->SetTextColor(0,0,0);       // Texto negro
