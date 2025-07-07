@@ -205,7 +205,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Proceder al pago</button>
+        <a href="../views/pay/pay.php" class="btn btn-primary">Proceder al pago</a>
       </div>
     </div>
   </div>
