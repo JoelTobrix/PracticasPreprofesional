@@ -27,6 +27,7 @@ if (isset($_POST['correo']) && isset($_POST['contraseña'])) {
 
         if (password_verify($pass, $row['password'])) {
             $_SESSION['usuario'] = $row['email']; // Guarda el usuario en sesión
+             $_SESSION['usuario_id'] = $row['usuario_id'];
             header("Location: ../views/interpc.php");
             exit();
         } else {

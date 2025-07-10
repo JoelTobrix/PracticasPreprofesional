@@ -1,35 +1,60 @@
-<!--
-<form action="products.controller.php" method="POST" enctype="multipart/form-data">
-    <label for="nombre">Nombre:</label><br>
-    <input type="text" id="nombre" name="nombre" required><br><br>
+<?php
+session_start();
+include '../../config/conex.php';
 
-    <label for="descripcion">Descripción:</label><br>
-    <textarea id="descripcion" name="descripcion" rows="3"></textarea><br><br>
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: /interpc/views/login.php');
+    exit;
+}
 
-    <label for="precio">Precio:</label><br>
-    <input type="number" id="precio" name="precio" step="0.01" required><br><br>
+$usuario_id = $_SESSION['usuario_id'];
+$carrito_id = intval($_GET['carrito_id'] ?? 0);
 
-    <label for="stock">Stock:</label><br>
-    <input type="number" id="stock" name="stock" required><br><br>
+if (!$carrito_id) {
+    die("Carrito no especificado");
+}
 
-    <label for="categoria">Categoría:</label><br>
-    <input type="text" id="categoria" name="categoria"><br><br>
+// Opcional: Verificar que el carrito pertenezca al usuario
+$sqlCheck = "SELECT * FROM carrito WHERE carrito_id = ? AND usuario_id = ?";
+$stmtCheck = $conn->prepare($sqlCheck);
+$stmtCheck->bind_param("ii", $carrito_id, $usuario_id);
+$stmtCheck->execute();
+$resultCheck = $stmtCheck->get_result();
+if ($resultCheck->num_rows === 0) {
+    die("Carrito no encontrado o no autorizado");
+}
 
-    <label for="imagen">Imagen:</label><br>
-    <input type="file" id="imagen" name="imagen" accept="image/*"><br><br>
+// Obtener items carrito y calcular total
+$sql = "
+SELECT p.nombre, p.descripcion, p.precio, ic.cantidad, ic.subtotal
+FROM itemcarrito ic
+JOIN producto p ON p.producto_id = ic.producto_id
+WHERE ic.Carrito_id = ?
+";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $carrito_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    <input type="submit" name="add_product" value="Guardar Producto">
-</form>
--->
+$total = 0;
+$items = [];
+while ($row = $result->fetch_assoc()) {
+    $items[] = $row;
+    $total += $row['subtotal'];
+}
+
+// Calcular IVA y total final
+$iva = $total * 0.12;
+$final = $total + $iva;
+?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/interpc/img/logo.png" type="image/png">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/interpc/img/logo.png" type="image/png" />
     <title>Seccion de pagos</title>
-
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -37,7 +62,7 @@
             padding: 30px;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Alinea al inicio verticalmente */
+            align-items: flex-start;
             min-height: 100vh;
         }
         .invoice-container {
@@ -108,7 +133,7 @@
         }
         .invoice-table tfoot tr:last-child td {
             font-size: 1.1rem;
-            color: #28a745; /* Verde para el total */
+            color: #28a745;
         }
         .invoice-footer {
             text-align: center;
@@ -135,104 +160,98 @@
                 margin: 0;
             }
             .print-button-container {
-                display: none; /* Oculta el botón de imprimir en la impresión */
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="invoice-container">
-        <div class="invoice-header">
-            <div>
-                <h1>FACTURA ELECTRÓNICA</h1>
-                <p>No. 001-001-000012345</p>
-                <p>Fecha de Emisión: <?php echo date("Y-m-d H:i:s"); ?></p>
-            </div>
-            <div class="company-info">
-                <img src="/interpc/img/logo.png" alt="Interpc.net Logo" style="width: 100px;">
-                <h3>Interpc.net</h3>
-                <p>RUC: 1792345678001</p>
-                <p>Dir: Av. 24 de Mayo y Calle 10 de Agosto</p>
-                <p>Puyo, Pastaza, Ecuador</p>
-                <p>Tel: (03) 288-1234</p>
-                <p>Email: info@interpc.net</p>
-            </div>
+<div class="invoice-container">
+    <div class="invoice-header">
+        <div>
+            <h1>FACTURA ELECTRÓNICA</h1>
+            <p>No. 001-001-000012345</p>
+            <p>Fecha de Emisión: <?= date("Y-m-d H:i:s") ?></p>
         </div>
-
-        <div class="invoice-details">
-            <div>
-                <strong>Cliente:</strong><br>
-                Nombre del Cliente Ejemplo<br>
-                RUC/CI: 1712345678<br>
-                Dir: Calle Falsa 123, Quito<br>
-                Email: cliente@ejemplo.com
-            </div>
-            <div class="right-align">
-                <strong>Método de Pago:</strong> Tarjeta de Crédito/Débito<br>
-                <strong>Estado:</strong> Pagado<br>
-                </div>
-        </div>
-
-        <table class="invoice-table">
-            <thead>
-                <tr>
-                    <th>Cantidad</th>
-                    <th>Descripción</th>
-                    <th>Precio Unitario</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Laptop Gamer Ultra X</td>
-                    <td>$1200.00</td>
-                    <td>$1200.00</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Monitor LED 24" Curvo</td>
-                    <td>$250.00</td>
-                    <td>$500.00</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Teclado Mecánico RGB</td>
-                    <td>$80.00</td>
-                    <td>$80.00</td>
-                </tr>
-                </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" style="text-align: right;">Subtotal:</td>
-                    <td>$1780.00</td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="text-align: right;">Descuento (0%):</td>
-                    <td>$0.00</td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="text-align: right;">IVA (12%):</td>
-                    <td>$213.60</td>
-                </tr>
-                <tr>
-                    <td colspan="3" style="text-align: right;">TOTAL A PAGAR:</td>
-                    <td>$1993.60</td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <div class="invoice-footer">
-            <p>Gracias por tu compra en Interpc.net.</p>
-            <p>Documento generado electrónicamente. Validez su autenticidad en el portal del SRI.</p>
+        <div class="company-info">
+            <img src="/interpc/img/logo.png" alt="Interpc.net Logo" style="width: 100px;">
+            <h3>Interpc.net</h3>
+            <p>RUC: 1792345678001</p>
+            <p>Dir: Av. 24 de Mayo y Calle 10 de Agosto</p>
+            <p>Puyo, Pastaza, Ecuador</p>
+            <p>Tel: 0991956962</p>
+            <p>Email: homerortizesp@gmail.com</p>
         </div>
     </div>
 
-    <div class="print-button-container">
-        <button class="btn btn-info" onclick="window.print()">Imprimir Factura</button>
-        <a href="javascript:history.back()" class="btn btn-secondary ms-2">Volver</a>
+    <div class="invoice-details">
+        <div>
+            <strong>Cliente:</strong><br>
+            Nombre del Cliente Ejemplo<br>
+            RUC/CI: 1712345678<br>
+            Dir: Calle Falsa 123, Quito<br>
+            Email: cliente@ejemplo.com
+        </div>
+        <div class="right-align">
+            <strong>Método de Pago:</strong> Tarjeta de Crédito/Débito<br>
+            <strong>Estado:</strong> Pagado<br>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <table class="invoice-table">
+        <thead>
+            <tr>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+                <th>Precio Unitario</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($items)): ?>
+                <?php foreach ($items as $row): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['cantidad']) ?></td>
+                        <td><?= htmlspecialchars($row['nombre']) ?><br><small><?= htmlspecialchars($row['descripcion']) ?></small></td>
+                        <td>$<?= number_format($row['precio'], 2) ?></td>
+                        <td>$<?= number_format($row['subtotal'], 2) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr><td colspan="4">No hay productos en el carrito</td></tr>
+            <?php endif; ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" style="text-align: right;">Subtotal:</td>
+                <td>$<?= number_format($total, 2) ?></td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right;">Descuento (0%):</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right;">IVA (12%):</td>
+                <td>$<?= number_format($iva, 2) ?></td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right;">TOTAL A PAGAR:</td>
+                <td>$<?= number_format($final, 2) ?></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="invoice-footer">
+        <p>Gracias por tu compra en Interpc.net.</p>
+        <p>Documento generado electrónicamente. Validez su autenticidad en el portal del SRI.</p>
+    </div>
+</div>
+
+<div class="print-button-container">
+    <button class="btn btn-info" onclick="window.print()">Imprimir Factura</button>
+    <a href="../interpc.php" class="btn btn-secondary ms-2">Volver</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
