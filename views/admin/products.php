@@ -52,7 +52,8 @@
         echo "<td>\${$row['precio']}</td>";
         echo "<td>{$row['stock']}</td>";
         echo "<td>{$row['categoria']}</td>";
-        echo "<td><img src='../{$row['imagen']}' width='50'></td>";
+        echo "<td><img src='../../{$row['imagen']}' width='50'></td>";
+
         echo "<td>";
 
         
@@ -77,7 +78,7 @@
 
 <div style="display: flex; gap: 10px;"> <!--div, botones en forma horizontal-->
 <button class="color-green" data-bs-toggle="modal" data-bs-target="#addProductModal"><img src="/interpc/icons/basket.svg" alt="Basket" width="20" height="20"> Añadir producto </button>
-<button class="color-blue"><img src="/interpc/icons/uptade.svg" alt="Uptade" width="20" height="20">Actualizar</button>
+<button class="color-blue" onclick="Mensaje()"><img src="/interpc/icons/uptade.svg" alt="Uptade" width="20" height="20">Actualizar</button>
 <button class="color-red"><img src="/interpc/icons/delete.svg" alt="Uptade" width="20" height="20">Eliminar</button>
 <a href="/interpc/reports/servidor.report.php" class="color-orange" style="text-decoration: none;"><img src="/interpc/icons/reports.svg" alt="Reports" width="20" height="20">Generar reporte</a>
 </div>
@@ -220,6 +221,25 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="d-flex">
       <div class="toast-body">
         🔔 ¡Tienes una nueva notificación!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function Mensaje(){
+  const toast = new bootstrap.Toast(document.getElementById('miToast2'));
+    toast.show();
+  }
+</script>
+
+<!-- Toast Mensaje-->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="miToast2" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        ✅ Seleccione el boton editar para actualizar producto.
       </div>
       <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
     </div>

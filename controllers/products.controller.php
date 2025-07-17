@@ -7,8 +7,11 @@ function uploadImage($file) {
         $ruta_relativa = 'uploads/' . $imagen_nombre;
         $ruta_fisica = __DIR__ . '/../' . $ruta_relativa;
 
-        if (!is_dir(__DIR__ . '/../uploads')) {
-            mkdir(__DIR__ . '/../uploads', 0755, true);
+        // Asegúrate de que la carpeta 'uploads' exista al nivel de la raíz de tu proyecto
+        // (es decir, en el mismo nivel que 'controllers', 'views', etc.)
+        $uploads_dir_fisica = __DIR__ . '/../uploads';
+        if (!is_dir($uploads_dir_fisica)) {
+            mkdir($uploads_dir_fisica, 0755, true);
         }
 
         if (move_uploaded_file($imagen_tmp, $ruta_fisica)) {
@@ -31,35 +34,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
     $stock = $_POST['stock'];
     $categoria = $_POST['categoria'];
 
-    // Validar y mover la imagen
+    $imagen_para_db = ''; 
+
+    
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        $imagen_tmp = $_FILES['imagen']['tmp_name'];
-        $imagen_nombre = basename($_FILES['imagen']['name']);
-        $ruta_destino = '/interpc/uploads/' . $imagen_nombre;
-
-        // Crear carpeta si no existe
-        if (!is_dir('uploads')) {
-            mkdir('uploads', 0755, true);
+        $resultado_subida = uploadImage($_FILES['imagen']);
+        if ($resultado_subida['success']) {
+            $imagen_para_db = $resultado_subida['path']; // Guardamos la ruta relativa
+        } else {
+            // Manejo de error si la subida falla
+            echo "Error al subir imagen: " . $resultado_subida['message'];
+            exit; // Detenemos la ejecución si hay un error crítico
         }
-
-        move_uploaded_file($imagen_tmp, $ruta_destino);
     } else {
-        echo "Error al subir imagen";
-        exit;
+        
     }
+    // --- FIN DE CAMBIO IMPORTANTE PARA LA INSERCIÓN ---
 
     // Conectar a BD y guardar producto
-    include '../config/conex.php'; //Conexion
+    include '../config/conex.php'; 
 
+    
     $stmt = $conn->prepare("INSERT INTO producto (nombre, descripcion, precio, stock, categoria, imagen) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssdiis", $nombre, $descripcion, $precio, $stock, $categoria, $ruta_destino);
+    $stmt->bind_param("ssdiis", $nombre, $descripcion, $precio, $stock, $categoria, $imagen_para_db); // Usamos $imagen_para_db
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
         header("Location: ../views/admin/products.php"); 
         exit;
     } else {
-        echo "Error al guardar en la base de datos";
+        echo "Error al guardar en la base de datos: " . $stmt->error; // Añadimos $stmt->error para mejor depuración
     }
 
     $stmt->close();
@@ -68,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
 
 
 // 2. Actualizar productos
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
     include '../config/conex.php';
 
@@ -133,6 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
             $stmt_old_img->fetch();
             $stmt_old_img->close();
 
+            // Solo intentar borrar si la ruta antigua existe y es diferente a la nueva
             $fullOldImagePath = realpath(__DIR__ . '/../' . $oldImagePath);
             if ($oldImagePath && $oldImagePath !== $imagenPath && file_exists($fullOldImagePath)) {
                 unlink($fullOldImagePath);
@@ -179,7 +185,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
     $conn->close();
     exit();
 }
-
-
- 
 ?>

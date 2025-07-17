@@ -72,7 +72,7 @@
         return `
             <div class="product-card">
                 <div class="product-image">
-                    <img src="../img/${product.imagen}" alt="${product.nombre}">
+                    <img src="../${product.imagen}" alt="${product.nombre}">
                     <div class="stock-badge ${getStockClass(product.stock)}">
                         ${getStockText(product.stock)}
                     </div>
