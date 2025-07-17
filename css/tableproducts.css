@@ -1,143 +1,389 @@
-/* Contenedor general con fondo */
-.table-container {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 2rem;
-    min-height: 100vh;
-    border-radius: 10px;
+/* Reset y configuración base */
+* {
+  box-sizing: border-box;
 }
 
-.table{
-    width: 100%;
-    margin-bottom: 2rem;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* Header superior mejorado */
+.d-flex.justify-content-between.align-items-center {
+  background: linear-gradient(135deg, #62aaf1 0%, #4a9ae1 100%) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.d-flex h5 {
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-outline-primary {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-outline-primary:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: white !important;
+}
+
+/* Logo mejorado */
+body > img {
+  display: block;
+  margin: 0 auto 2rem;
+  max-width: 150px;
+  height: auto;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+body > img:hover {
+  transform: scale(1.05);
+}
+
+/* Tabla principal mejorada */
+.table {
+  width: 100%;
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed; /* Esto asegura que las columnas mantengan su ancho */
 }
 
 .table th,
-.table td{
-    padding: 0.5rem;
-    vertical-align: top;
-    border: none;
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+  border: none;
+  font-size: 0.95rem;
+  text-align: left; /* Alineación consistente */
 }
 
-.table thead th{
-    background-color: #94adf1;
-    border-bottom:#94adf1;
-    color: white;
-    font-weight: bold;
+/* Anchos específicos para cada columna */
+.table th:nth-child(1),
+.table td:nth-child(1) { width: 15%; } /* Nombre */
+.table th:nth-child(2),
+.table td:nth-child(2) { width: 20%; } /* Descripción */
+.table th:nth-child(3),
+.table td:nth-child(3) { width: 12%; } /* Precio */
+.table th:nth-child(4),
+.table td:nth-child(4) { width: 10%; } /* Stock */
+.table th:nth-child(5),
+.table td:nth-child(5) { width: 15%; } /* Categoría */
+.table th:nth-child(6),
+.table td:nth-child(6) { width: 12%; text-align: center; } /* Imagen */
+.table th:nth-child(7),
+.table td:nth-child(7) { width: 16%; text-align: center; } /* Acciones */
+
+/* Header de tabla profesional */
+.table thead th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  border: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-/* Filas alternadas */
+/* Filas de tabla */
+.table tbody tr {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .table tbody tr:nth-child(even) {
-    background-color: #f8f9ff;
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
 }
 
 .table tbody tr:nth-child(odd) {
-    background-color: #ffffff;
+  background: white;
 }
 
-/* Efecto hover en las filas */
 .table tbody tr:hover {
-    background-color: #e3f2fd;
-    transform: scale(1.01);
-    transition: all 0.2s ease;
+  background: linear-gradient(135deg, #e8f2ff 0%, #f0f7ff 100%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.color-green{
-   background-color: #4CAF50; /* Verde agradable */
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    font-family: sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+/* Celdas mejoradas */
+.table td {
+  color: #2c3e50;
+  font-weight: 500;
+  word-wrap: break-word; /* Para textos largos */
+}
+
+.table td:first-child {
+  font-weight: 700;
+  color: #1a252f;
+}
+
+/* Precio con formato */
+.table td:nth-child(3) {
+  font-weight: 700;
+  color: #27ae60;
+  font-family: 'Courier New', monospace;
+}
+
+/* Stock con formato */
+.table td:nth-child(4) {
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Imágenes en tabla */
+.table img {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  object-fit: cover;
+  max-width: 50px;
+  height: 50px;
+}
+
+.table img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de botones principales */
+div[style*="display: flex; gap: 10px"] {
+  background: rgba(255, 255, 255, 0.95) !important;
+  padding: 2rem !important;
+  border-radius: 20px !important;
+  display: flex !important;
+  gap: 1.5rem !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Botones mejorados */
+.color-green,
+.color-blue,
+.color-red,
+.color-orange {
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 180px;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Botón verde (Añadir) */
+.color-green {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
 }
 
 .color-green:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
 }
 
-.color-blue{
-    background-color: #62aaf1;
-    color: white;
-    border: none;
-    padding:  10px 15px;
-     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    font-family: sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 12px rgba(98, 170, 241, 0.3);
+/* Botón azul (Actualizar) */
+.color-blue {
+  background: linear-gradient(135deg, #62aaf1 0%, #4a9ae1 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(98, 170, 241, 0.3);
 }
 
 .color-blue:hover {
-    background-color: #4a9ae1;
-    transform: translateY(-2px);
+  background: linear-gradient(135deg, #4a9ae1 0%, #3b8bd1 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(98, 170, 241, 0.4);
 }
 
-.color-red{
-    background-color: crimson;
-    color: white;
-    border: none;
-     padding:  10px 15px;
-     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    font-family: sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+/* Botón rojo (Eliminar) */
+.color-red {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
 }
 
 .color-red:hover {
-    background-color: #b91c47;
-    transform: translateY(-2px);
+  background: linear-gradient(135deg, #c82333 0%, #b21e2f 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(220, 53, 69, 0.4);
 }
 
-.color-orange{
-background-color:chocolate;
-color: white;
-border: none;
- padding:  10px 15px;
-     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    font-family: sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 12px rgba(210, 105, 30, 0.3);
+/* Botón naranja (Reportes y Editar) */
+.color-orange {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
 }
 
 .color-orange:hover {
-    background-color: #c8691e;
-    transform: translateY(-2px);
+  background: linear-gradient(135deg, #f7931e 0%, #e8851c 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
 }
 
-/* Contenedor para los botones */
-.buttons-container {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 1.5rem;
-    border-radius: 10px;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* Botón editar en tabla (más pequeño) */
+.table .color-orange {
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  min-width: auto;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
 }
-/*  Boton notificacion */
+
+/* Modales mejorados */
+.modal-content {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 2rem;
+}
+
+.modal-header h5 {
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.3rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-body {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.modal-footer {
+  background: white;
+  border: none;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Formularios en modales */
+.form-label {
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 0.8rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+}
+
+/* Toast mejorado */
+.toast {
+  border-radius: 15px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  /* En móvil, permitir scroll horizontal */
+  .table {
+    table-layout: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .table th,
+  .table td {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .table img {
+    max-width: 40px;
+    height: 40px;
+  }
+}
+
+/* Animaciones suaves */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.table {
+  animation: fadeIn 0.5s ease-in;
+}
