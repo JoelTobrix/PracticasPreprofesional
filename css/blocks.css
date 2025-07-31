@@ -170,3 +170,22 @@
 .opacity-0 {
     opacity: 0 !important;
 }
+/* Submenú posicionamiento */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  right: 100%;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+  display: none;
+  position: absolute;
+}
+
+/* Mostrar submenu */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
